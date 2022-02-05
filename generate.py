@@ -161,11 +161,9 @@ card = f'''<div class="card">
  <div class="content">
   <div class="flex flex-column flex-content-center flex-items-center">
     <div>
-      <a href="https://poke-client.vercel.app/pokemon/{result['name']}">
-        <div class="image-wrapper">
-          <img alt="{result['name']}" src="{avatar}" class="image" />
-        </div>
-      </a>
+     <div class="image-wrapper">
+        <img alt="{result['name']}" src="{avatar}" class="image" />
+      </div>
     </div>
     <div>
       <h3 class="name">{formatName(result['name'])}</h3>
@@ -332,7 +330,10 @@ html = f'''<div class="container">
         </div>
       </div>'''
 
-hti.screenshot(html_str=html, css_str=classes, save_as='pokemon.png')
+hti.screenshot(html_str=html, css_str=classes,
+               save_as='pokemon.png', size=(600, 500))
 
-f.write('<img src="pokemon.png" width="800" height="400" alt="pokemon">')
+f.write(f'''<a href="https://poke-client.vercel.app/pokemon/{result['name']}">
+       <img src="pokemon.png" alt="pokemon">
+      </a>''')
 f.close()
