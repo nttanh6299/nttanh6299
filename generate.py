@@ -3,6 +3,9 @@ import json
 import random
 import re
 import math
+from html2image import Html2Image
+
+hti = Html2Image()
 
 MAX_PROGRESS_VALUE = 300
 
@@ -111,10 +114,6 @@ f = open("./README.md", "w")
 pokemon_id = random.randint(1, 200)
 res = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon_id}')
 result = json.loads(res.text)
-
-print(f"Types: {result['types']}")
-# print(f"Abilities: {result['abilities']}")
-# print(f"Sprites: {result['sprites']}")
 
 avatar = ''
 if result['sprites'] and result['sprites']['other'] and result['sprites']['other']['official-artwork'] and result['sprites']['other']['official-artwork']['front_default']:
@@ -232,6 +231,7 @@ classes = '''* {
     margin-right: 6px;
   }
   .stat {
+    width: 600px;
     margin-top: 16px;
   }
   .stat .label {
@@ -269,11 +269,12 @@ classes = '''* {
   }
   .card {
     width: 450px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     position: relative;
     background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px;
     border-radius: 16px;
+    padding: 10px;
   }
   .card .back-face {
     position: absolute;
@@ -320,25 +321,18 @@ classes = '''* {
     color: var(--color, #ccc);
   }'''
 
-f.write(f'''
-<svg fill="none" viewBox="0 0 600 600" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
-	<foreignObject width="100%" height="100%">
-		<div xmlns="http://www.w3.org/1999/xhtml">
-			<style>
-        {classes}
-      </style>
-			<div class="container">
+html = f'''<div class="container">
         <div class="flex flex-column">
           <div class="flex-item flex flex-items-center flex-content-center">
             {card}
           </div>
-          <div class="flex-item">
+          <div class="flex-item flex flex-column flex-items-center flex-content-center">
             {stats}
           </div>
         </div>
-      </div>
-    </div>
-	</foreignObject>
-</svg>
-''')
+      </div>'''
+
+hti.screenshot(html_str=html, css_str=classes, save_as='pokemon.png')
+
+f.write('<img src="pokemon.png" width="800" height="400" alt="pokemon">')
 f.close()
