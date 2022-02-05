@@ -31,8 +31,8 @@ jobs:
 
       - name: Commit README
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@gmail.com"
+          git config user.name "${ACCESS_GITHUB_ACTOR}"
+          git config user.email "${ACCESS_GITHUB_ACTOR}@gmail.com"
           git add .
           git commit -am "Update README"
-          git push --all -f https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+          git push --all -f https://${{ secrets.ACCESS_GITHUB_TOKEN }}@github.com/${ACCESS_GITHUB_REPOSITORY}.git
