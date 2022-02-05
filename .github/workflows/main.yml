@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */1 * * *'
+    - cron: "0 */1 * * *"
 
 jobs:
   build-and-generate:
@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-     - name: Generate README
+      - name: Generate README
         run: python generate.py
 
       - name: Commit README
